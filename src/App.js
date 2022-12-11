@@ -7,6 +7,7 @@ import 'firebase/compat/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getAuth } from 'firebase/auth';
 
 firebase.initializeApp({
   apiKey: "AIzaSyAXmA7-NgR2w1z4nRK0KeHHt5kihLGjNNk",
@@ -76,7 +77,7 @@ function ChatRoom() {
 
     const { uid, photoURL } = auth.currentUser;
 
-    if (formValue.trim() != "")
+    if (formValue.trim() !== "")
     {
       await messagesRef.add({
         text: formValue, 
@@ -116,10 +117,11 @@ function ChatMessage(props) {
 
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
 
+
   return (
     <div className={`message ${messageClass}`}>
-      <img src={photoURL}/>
-      <p>{text}</p>
+      <img src={photoURL} alt=""/>
+      <p>{text.trim()}</p>
     </div>
     )
 
